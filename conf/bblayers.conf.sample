@@ -1,0 +1,15 @@
+# POKY_BBLAYERS_CONF_VERSION is increased each time build/conf/bblayers.conf
+# changes incompatibly
+POKY_BBLAYERS_CONF_VERSION = "2"
+
+BBPATH = "${TOPDIR}"
+BBFILES ?= ""
+
+BBLAYERS ?= " \
+  /workdir/sources/poky/meta \
+  /workdir/sources/poky/meta-poky \
+  /workdir/sources/poky/meta-yocto-bsp \
+  /workdir/sources/meta-rauc-community/meta-rauc-qemux86 \
+  /workdir/sources/meta-rauc \
+  /workdir/meta-rauc-qemu-demo  \
+  "

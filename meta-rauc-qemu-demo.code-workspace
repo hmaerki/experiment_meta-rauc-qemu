@@ -1,0 +1,36 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"files.exclude": {
+			"**/.git": true,
+			"sstate-cache/": true,
+			"cache/": true,
+			"downloads/": true,
+			// "tmp/": true,
+			"tmp/abi_version/": true,
+			"tmp/buildstats/": true,
+			"tmp/cache/": true,
+			"tmp/deploy/": true,
+			"tmp/hosttools/": true,
+			"tmp/log/": true,
+			"tmp/pkgdata/": true,
+			"tmp/saved_tmpdir/": true,
+			"tmp/sstate-control/": true,
+			"tmp/stamps/": true,
+			"tmp/sysroots/": true,
+			"tmp/sysroots-components/": true,
+			"tmp/sysroots-uninative/": true,
+			"tmp/work/": true,
+			"tmp/work-shared/": true
+		},
+		"files.watcherExclude": {
+			"**/.git/objects/**": true,
+			"**/.git/subtree-cache/**": true,
+			"**/tmp/deploy/": true
+		}
+	}
+}

@@ -1,0 +1,33 @@
+
+MACHINE ??= "qemux86-64"
+
+DISTRO ?= "poky"
+PACKAGE_CLASSES ?= "package_rpm"
+EXTRA_IMAGE_FEATURES ?= "debug-tweaks"
+USER_CLASSES ?= "buildstats"
+
+PATCHRESOLVE = "noop"
+
+BB_DISKMON_DIRS ??= "\
+    STOPTASKS,${TMPDIR},1G,100K \
+    STOPTASKS,${DL_DIR},1G,100K \
+    STOPTASKS,${SSTATE_DIR},1G,100K \
+    STOPTASKS,/tmp,100M,100K \
+    HALT,${TMPDIR},100M,1K \
+    HALT,${DL_DIR},100M,1K \
+    HALT,${SSTATE_DIR},100M,1K \
+    HALT,/tmp,10M,1K"
+
+PACKAGECONFIG:append:pn-qemu-system-native = " sdl"
+
+CONF_VERSION = "2"
+
+# Rauc configuration
+EXTRA_IMAGE_FEATURES += "debug-tweaks"
+DISTRO_FEATURES += "rauc"
+CORE_IMAGE_EXTRA_INSTALL += "rauc"
+MACHINE_FEATURES:append = " pcbios efi"
+EXTRA_IMAGEDEPENDS += "ovmf"
+PREFERRED_RPROVIDER_virtual-grub-bootconf = "rauc-qemu-grubconf"
+INIT_MANAGER = "systemd"
+EXTRA_IMAGE_FEATURES += "ssh-server-openssh"
