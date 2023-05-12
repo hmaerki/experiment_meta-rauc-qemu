@@ -1,0 +1,59 @@
+#
+# Copied from https://github.com/rauc/rauc-hawkbit-updater/blob/master/config.conf.example
+#
+
+[client]
+# host or IP and optional port
+hawkbit_server            = 192.168.1.116:8080
+
+# true = HTTPS, false = HTTP
+ssl                       = false
+
+# validate ssl certificate (only use if ssl is true)
+ssl_verify                = false
+
+# Tenant id
+tenant_id                 = DEFAULT
+
+# Target name (controller id)
+target_name               = test-target
+
+# Security token
+auth_token                = cb115a721af28f781b493fa467819ef5
+
+# Or gateway_token can be used instead of auth_token
+#gateway_token             = cb115a721af28f781b493fa467819ef5
+
+# Temporay file RAUC bundle should be downloaded to
+bundle_download_location  = /tmp/bundle.raucb
+
+# Do not download bundle, let RAUC use its HTTP streaming feature instead
+#stream_bundle             = true
+
+# time in seconds to wait before retrying
+retry_wait                = 60
+
+# connection timeout in seconds
+connect_timeout           = 20
+
+# request timeout in seconds
+timeout                   = 60
+
+# time to be below "low_speed_rate" to trigger the low speed abort
+low_speed_time            = 0
+
+# average transfer speed to be below during "low_speed_time" seconds
+low_speed_rate            = 0
+
+# reboot after a successful update
+post_update_reboot        = false
+
+# debug, info, message, critical, error, fatal
+log_level                 = message
+
+# Every key / value under [device] is sent to HawkBit (target attributes),
+# and can be used in target filter.
+[device]
+mac_address               = ff:ff:ff:ff:ff:ff
+hw_revision               = 2
+model                     = T1

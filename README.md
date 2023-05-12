@@ -27,7 +27,7 @@ cd poky
 
 ```
 cd poky
-docker run --rm -it -v `pwd`:/workdir crops/poky --workdir=/workdir
+docker run --rm -it --network=host -v `pwd`:/workdir crops/poky --workdir=/workdir
 ```
 
 Build
@@ -52,6 +52,15 @@ Build update bundle
 bitbake qemu-demo-bundle
 ```
 
+Remove qemu-disks
+
+```
+rm -f `find /workdir/build/tmp/ -name *qemux86-64*.rootfs.wic`
+bitbake -c cleanall core-image-minimal
+bitbake core-image-minimal
+runqemu nographic slirp ovmf wic core-image-minimal
+```
+
 Update
 
 ```
@@ -59,3 +68,25 @@ scp -P 2222 tmp/deploy/images/qemux86-64/qemu-demo-bundle-qemux86-64.raucb root@
 
 rauc install /data/qemu-demo-bundle-qemux86-64.raucb
 ```
+
+
+## Rauc Hawkbit Updater
+
+* https://github.com/rauc/rauc-hawkbit-updater
+
+
+Start qemu, make sure the containers 
+
+```
+journalctl --follow -u rauc-hawkbit-updater.service
+```
+
+
+Start the update server 
+
+```
+docker run -it -p 8080:8080 hawkbit/hawkbit-update-server
+```
+
+admin/admin
+
