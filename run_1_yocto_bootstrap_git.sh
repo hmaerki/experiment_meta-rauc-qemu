@@ -8,7 +8,7 @@ GIT_RAUC=https://github.com/rauc
 
 
 DIRECTORY_OF_THIS_FILE=$(dirname $(readlink -f ${BASH_SOURCE[0]}))
-YOCTO_DIRECTORY=$(dirname $DIRECTORY_OF_THIS_FILE)
+YOCTO_DIRECTORY=$(dirname $(dirname $DIRECTORY_OF_THIS_FILE))
 
 GIT_QUIET="--quiet"
 
@@ -33,6 +33,6 @@ git_checkout () {
     )
 }
 
-git_checkout $GIT_YOCTO poky kirkstone sources
-git_checkout $GIT_RAUC  meta-rauc kirkstone sources
-git_checkout $GIT_RAUC  meta-rauc-community kirkstone sources
+git_checkout $GIT_YOCTO poky kirkstone layer
+git_checkout $GIT_RAUC  meta-rauc kirkstone layer
+git_checkout $GIT_RAUC  meta-rauc-community kirkstone layer

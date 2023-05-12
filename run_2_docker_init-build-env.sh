@@ -4,11 +4,11 @@
 #
 
 export ROOT=/workdir
-export TEMPLATECONF=$ROOT/meta-rauc-qemu-demo/conf
-source $ROOT/sources/poky/oe-init-build-env $ROOT/build
+export TEMPLATECONF=$ROOT/layer/meta-rauc-qemu-demo/conf
+source $ROOT/layer/poky/oe-init-build-env $ROOT/build
 
 if [ ! -f "conf/site.conf" ]; then
-    cp $ROOT/meta-rauc-qemu-demo/conf/site.conf.sample conf/site.conf
+    cp $ROOT/layer/meta-rauc-qemu-demo/conf/site.conf.sample conf/site.conf
 fi
 
 echo "Calling: oe-init-build-env $ROOT/build"
