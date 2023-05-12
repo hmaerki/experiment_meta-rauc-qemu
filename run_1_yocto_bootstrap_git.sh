@@ -33,6 +33,6 @@ git_checkout () {
     )
 }
 
-git_checkout $GIT_YOCTO poky kirkstone layer
-git_checkout $GIT_RAUC  meta-rauc kirkstone layer
-git_checkout $GIT_RAUC  meta-rauc-community kirkstone layer
+git_checkout $GIT_YOCTO poky kirkstone layers
+git_checkout $GIT_RAUC  meta-rauc kirkstone layers
+git_checkout $GIT_RAUC  meta-rauc-community kirkstone layers

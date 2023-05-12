@@ -6,10 +6,10 @@ BBPATH = "${TOPDIR}"
 BBFILES ?= ""
 
 BBLAYERS ?= " \
-  /workdir/layer/poky/meta \
-  /workdir/layer/poky/meta-poky \
-  /workdir/layer/poky/meta-yocto-bsp \
-  /workdir/layer/meta-rauc-community/meta-rauc-qemux86 \
-  /workdir/layer/meta-rauc \
-  /workdir/layer/meta-rauc-qemu-demo  \
+  /workdir/layers/poky/meta \
+  /workdir/layers/poky/meta-poky \
+  /workdir/layers/poky/meta-yocto-bsp \
+  /workdir/layers/meta-rauc-community/meta-rauc-qemux86 \
+  /workdir/layers/meta-rauc \
+  /workdir/layers/meta-rauc-qemu-demo  \
   "

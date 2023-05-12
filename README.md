@@ -10,14 +10,14 @@ See
 
 **Create directory structure**
 
-and clone this repo into directory `poky/layer/meta-rauc-qemu-demo`.
+and clone this repo into directory `poky/layers/meta-rauc-qemu-demo`.
 
 
 **Clone other layers**
 
 ```
 cd poky
-./layer/meta-rauc-qemu-demo/run_1_yocto_bootstrap_git.sh
+./layers/meta-rauc-qemu-demo/run_1_yocto_bootstrap_git.sh
 ```
 
 **Start docker container**
@@ -30,7 +30,7 @@ docker run --rm -it --network=host -v `pwd`:/workdir crops/poky --workdir=/workd
 Build
 
 ```
-source ./layer/meta-rauc-qemu-demo/run_2_docker_init-build-env.sh
+source ./layers/meta-rauc-qemu-demo/run_2_docker_init-build-env.sh
 
 bitbake core-image-minimal
 ```

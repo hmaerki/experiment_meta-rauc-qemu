@@ -1,5 +1,5 @@
 DL_DIR ?= "/workdir/downloads"
 
-RAUC_KEYRING_FILE="/workdir/layer/meta-rauc-qemu-demo/example-ca/ca.cert.pem"
-RAUC_KEY_FILE="/workdir/layer/meta-rauc-qemu-demo/example-ca/private/development-1.key.pem"
-RAUC_CERT_FILE="/workdir/layer/meta-rauc-qemu-demo/example-ca/development-1.cert.pem"
+RAUC_KEYRING_FILE="/workdir/layers/meta-rauc-qemu-demo/example-ca/ca.cert.pem"
+RAUC_KEY_FILE="/workdir/layers/meta-rauc-qemu-demo/example-ca/private/development-1.key.pem"
+RAUC_CERT_FILE="/workdir/layers/meta-rauc-qemu-demo/example-ca/development-1.cert.pem"
