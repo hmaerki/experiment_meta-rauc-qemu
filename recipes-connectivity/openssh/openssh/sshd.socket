@@ -1,0 +1,15 @@
+#
+# Copied from layers/poky/meta/recipes-connectivity/openssh/openssh/sshd.socket
+#
+
+[Unit]
+Conflicts=sshd.service
+Wants=sshdgenkeys.service
+
+[Socket]
+ExecStartPre=@BASE_BINDIR@/mkdir -p /var/run/sshd
+ListenStream=2222
+Accept=yes
+
+[Install]
+WantedBy=sockets.target

@@ -49,14 +49,6 @@ Build update bundle
 bitbake qemu-demo-bundle
 ```
 
-Remove qemu-disks
-
-```
-rm -f `find /workdir/build/tmp/ -name *qemux86-64*.rootfs.wic`
-bitbake -c cleanall core-image-minimal
-bitbake core-image-minimal
-runqemu nographic slirp ovmf wic core-image-minimal
-```
 
 Update
 
@@ -66,6 +58,33 @@ scp -P 2222 tmp/deploy/images/qemux86-64/qemu-demo-bundle-qemux86-64.raucb root@
 rauc install /data/qemu-demo-bundle-qemux86-64.raucb
 ```
 
+Copy image
+
+```
+On host
+cd poky
+python -m http.server --bind 0.0.0.0 8000
+
+On qemu
+cd /tmp
+wget http://10.0.2.2:8000/build/tmp/work/qemux86_64-poky-linux/qemu-demo-bundle/1.0-r0/deploy-qemu-demo-bundle/qemu-demo-bundle-qemux86-64.raucb
+rauc install qemu-demo-bundle-qemux86-64.raucb
+reboot
+```
+
+## Rauc Hans Bundle
+
+```
+bitbake hans-bundle -c cleanall && bitbake hans-bundle
+ls -lh tmp/deploy/images/qemux86-64/hans-bundle*.raucb
+tmp/deploy/images/qemux86-64/hans-bundle-qemux86-64.raucb
+
+cd /tmp
+wget http://10.0.2.2:8000/build/tmp/deploy/images/qemux86-64/hans-bundle-qemux86-64.raucb
+rauc install hans-bundle-qemux86-64.raucb
+reboot
+
+```
 
 ## Rauc Hawkbit Updater
 
@@ -82,8 +101,38 @@ journalctl --follow -u rauc-hawkbit-updater.service
 Start the update server 
 
 ```
-docker run -it -p 8080:8080 hawkbit/hawkbit-update-server
+docker run -it --rm --network=host hawkbit/hawkbit-update-server
 ```
 
 admin/admin
 
+
+# Divers
+
+Remove qemu-disks
+
+```
+rm -f `find /workdir/build/tmp/ -name *qemux86-64*.rootfs.wic`
+bitbake -c cleanall rauc core-image-minimal
+bitbake rauc core-image-minimal
+runqemu nographic slirp ovmf wic core-image-minimal
+```
+
+Verify contents of bundle
+
+```
+oe-run-native rauc-native rauc info --keyring=/workdir/layers/meta-rauc-qemu-demo/example-ca/ca.cert.pem tmp/deploy/images/qemux86-64/qemu-demo-bundle-qemux86-64.raucb
+```
+
+```
+systemctl list-units
+dbus.service
+rauc-hawkbit-updater.service
+rauc-mark-good.service
+rauc.service 
+dbus.socket
+sshd.socket
+
+journalctl -u rauc-hawkbit-updater.service
+journalctl -u sshd.socket
+```
