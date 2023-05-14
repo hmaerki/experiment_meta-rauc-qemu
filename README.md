@@ -17,7 +17,7 @@ and clone this repo into directory `poky/layers/meta-rauc-qemu-demo`.
 
 ```
 cd poky
-./layers/meta-rauc-qemu-demo/run_1_yocto_bootstrap_git.sh
+./layers/meta-rauc-qemu-demo/run_1_ubuntu_bootstrap_git.sh
 ```
 
 **Start docker container**
@@ -45,12 +45,11 @@ rauc status
 
 ## Prepare bundle deployment
 
-On Host
+On host start ngins
 
 ```
-On host
 cd poky
-python3 -m http.server --bind 0.0.0.0 8000
+layers/meta-rauc-qemu-demo/run_2_ubuntu_nginx.sh
 ```
 
 ### Create bundle `qemu-demo-bundle`
@@ -63,10 +62,7 @@ bitbake qemu-demo-bundle
 In qemu
 
 ```
-cd /tmp
-rm -f qemu-demo-bundle-qemux86-64.raucb
 wget http://10.0.2.2:8000/build/tmp/work/qemux86_64-poky-linux/qemu-demo-bundle/1.0-r0/deploy-qemu-demo-bundle/qemu-demo-bundle-qemux86-64.raucb
-rauc install qemu-demo-bundle-qemux86-64.raucb
 reboot
 ```
 
@@ -79,6 +75,7 @@ cd poky
 
 bitbake rauc-native -caddto_recipe_sysroot
 
+rm -f bundle-single-binary.raucb ; \
 oe-run-native rauc-native \
   rauc bundle \
   --key=$RAUC_KEY_FILE \
@@ -91,9 +88,7 @@ oe-run-native rauc-native \
 In qemu
 
 ```
-cd /tmp
-wget http://10.0.2.2:8000/bundle-single-binary.raucb
-rauc install bundle-single-binary.raucb
+rauc install http://10.0.2.2:8000/bundle-single-binary.raucb
 reboot
 ```
 
