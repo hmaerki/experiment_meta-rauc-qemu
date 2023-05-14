@@ -7,7 +7,7 @@ description=Single Binary Hook Bundle
 filename=install-hook.sh
 
 [image.rootfs]
-sha256=c83d3241dfa306a4f8027d1aac24eb69bd7aaea9492c6e9262e79bd89f74a0ce
-size=70
+sha256=eee7a7c67cc79312d70d6677c0ad32cd1e47c68552704a1ef701fd072979b424
+size=67
 filename=files/demo_binary.bin
 hooks=install;

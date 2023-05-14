@@ -50,7 +50,7 @@ On Host
 ```
 On host
 cd poky
-python -m http.server --bind 0.0.0.0 8000
+python3 -m http.server --bind 0.0.0.0 8000
 ```
 
 ### Create bundle `qemu-demo-bundle`
@@ -76,6 +76,8 @@ reboot
 In container
 ```
 cd poky
+
+bitbake rauc-native -caddto_recipe_sysroot
 
 oe-run-native rauc-native \
   rauc bundle \
