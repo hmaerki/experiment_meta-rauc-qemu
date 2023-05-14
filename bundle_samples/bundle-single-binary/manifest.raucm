@@ -1,0 +1,13 @@
+[update]
+compatible=qemu86-64 demo platform
+version=2023-05-14
+description=Single Binary Hook Bundle
+
+[hooks]
+filename=install-hook.sh
+
+[image.rootfs]
+sha256=c83d3241dfa306a4f8027d1aac24eb69bd7aaea9492c6e9262e79bd89f74a0ce
+size=70
+filename=files/demo_binary.bin
+hooks=install;

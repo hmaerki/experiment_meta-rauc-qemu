@@ -1,0 +1,3 @@
+#!/bin/bash
+
+print "This was installed by bundle-single-binary.raucb"

@@ -27,7 +27,7 @@ cd poky
 docker run --rm -it --network=host -v `pwd`:/workdir crops/poky --workdir=/workdir
 ```
 
-Build
+**Build**
 
 ```
 source ./layers/meta-rauc-qemu-demo/run_2_docker_init-build-env.sh
@@ -35,7 +35,7 @@ source ./layers/meta-rauc-qemu-demo/run_2_docker_init-build-env.sh
 bitbake core-image-minimal
 ```
 
-Start
+**Start qemu**
 
 ```
 runqemu nographic slirp ovmf wic core-image-minimal
@@ -43,48 +43,58 @@ runqemu nographic slirp ovmf wic core-image-minimal
 rauc status
 ```
 
-Build update bundle
+## Prepare bundle deployment
 
-```
-bitbake qemu-demo-bundle
-```
-
-
-Update
-
-```
-scp -P 2222 tmp/deploy/images/qemux86-64/qemu-demo-bundle-qemux86-64.raucb root@localhost:/data/
-
-rauc install /data/qemu-demo-bundle-qemux86-64.raucb
-```
-
-Copy image
+On Host
 
 ```
 On host
 cd poky
 python -m http.server --bind 0.0.0.0 8000
+```
 
-On qemu
+### Create bundle `qemu-demo-bundle`
+
+In crops container
+```
+bitbake qemu-demo-bundle
+```
+
+In qemu
+
+```
 cd /tmp
+rm -f qemu-demo-bundle-qemux86-64.raucb
 wget http://10.0.2.2:8000/build/tmp/work/qemux86_64-poky-linux/qemu-demo-bundle/1.0-r0/deploy-qemu-demo-bundle/qemu-demo-bundle-qemux86-64.raucb
 rauc install qemu-demo-bundle-qemux86-64.raucb
 reboot
 ```
 
-## Rauc Hans Bundle
+
+### Create bundle `bundle-single-binary`
+
+In container
+```
+cd poky
+
+oe-run-native rauc-native \
+  rauc bundle \
+  --key=$RAUC_KEY_FILE \
+  --cert=$RAUC_CERT_FILE \
+  --keyring=$RAUC_KEYRING_FILE \
+  $META_DEMO/bundle_samples/bundle-single-binary/ \
+  bundle-single-binary.raucb
+```
+
+In qemu
 
 ```
-bitbake hans-bundle -c cleanall && bitbake hans-bundle
-ls -lh tmp/deploy/images/qemux86-64/hans-bundle*.raucb
-tmp/deploy/images/qemux86-64/hans-bundle-qemux86-64.raucb
-
 cd /tmp
-wget http://10.0.2.2:8000/build/tmp/deploy/images/qemux86-64/hans-bundle-qemux86-64.raucb
-rauc install hans-bundle-qemux86-64.raucb
+wget http://10.0.2.2:8000/bundle-single-binary.raucb
+rauc install bundle-single-binary.raucb
 reboot
-
 ```
+
 
 ## Rauc Hawkbit Updater
 
