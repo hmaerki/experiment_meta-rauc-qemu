@@ -6,8 +6,8 @@ case "$1" in
         slot-install)
                 # Environment variables in custom handlers:
                 # See: https://rauc.readthedocs.io/en/latest/reference.html?highlight=format#custom-handlers-interface
-                >&2 echo "RAUC_IMAGE_NAME=$RAUC_IMAGE_NAME $RAUC_IMAGE_SIZE bytes"
-                >&2 set | grep rauc
+                echo "RAUC_IMAGE_NAME=$RAUC_IMAGE_NAME $RAUC_IMAGE_SIZE bytes"
+                set | grep RAUC
                 cp $RAUC_IMAGE_NAME /demo_binary.bin
                 chmod a+x /demo_binary.bin
                 exit 0

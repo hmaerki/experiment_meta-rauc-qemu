@@ -62,7 +62,7 @@ bitbake qemu-demo-bundle
 In qemu
 
 ```
-wget http://10.0.2.2:8000/build/tmp/work/qemux86_64-poky-linux/qemu-demo-bundle/1.0-r0/deploy-qemu-demo-bundle/qemu-demo-bundle-qemux86-64.raucb
+rauc install http://10.0.2.2:8000/build/tmp/work/qemux86_64-poky-linux/qemu-demo-bundle/1.0-r0/deploy-qemu-demo-bundle/qemu-demo-bundle-qemux86-64.raucb
 reboot
 ```
 
